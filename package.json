@@ -19,6 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.10",
     "mongoose-softdelete": "^1.1.0",

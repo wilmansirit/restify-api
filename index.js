@@ -4,13 +4,15 @@ const restify = require('restify')
     , mongoose = require('mongoose')
     , morgan = require('morgan')
     , config = require('./config')
-    , rjwt = require('restify-jwt-community');
+    , rjwt = require('restify-jwt-community')
+    , cors = require('cors')
 
 
 const server = restify.createServer({ name: 'myApp', version: '1.0.0' });
 
 // Middleware
 server.use(restify.plugins.bodyParser());
+server.use(cors());
 server.use(morgan('tiny'));
 
 // 1st Method: Protect All Routes except......
