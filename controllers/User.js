@@ -5,7 +5,7 @@ const errors = require('restify-errors')
     , bycript = require('bcryptjs')
     , jwt = require('jsonwebtoken')
     , User = require('../models/User')
-    , auth = require('../auth')
+    , auth = require('../authenticate/auth')
     , config = require('../config');
 
 
