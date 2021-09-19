@@ -11,7 +11,6 @@ files.forEach((file) => {
 
   if (fileName != "index") {
 
-	console.log(require(`./${fileName}`));
     exports[fileName] = require(`./${fileName}`);
   
 	}
