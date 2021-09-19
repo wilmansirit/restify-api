@@ -11,7 +11,7 @@ const errors = require('restify-errors')
 
 module.exports = {
 
-    get: async (req, res, next) => {
+    getAll: async (req, res, next) => {
 
         const users = await User.find();
 

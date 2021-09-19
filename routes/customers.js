@@ -6,24 +6,27 @@ const errors = require('restify-errors')
     , config = require('../config')
 
 
-const controllers = require('../controllers');
+// const controllers = require('../controllers');
+const customerController = require('../controllers/Customer')
 
 
 module.exports = server => {
     // Get Customers
 
-    server.get('/customers', controllers.Customer.getAll);
+
+    server.get('/customers', customerController.getAll);
+    // server.get('/customers', controllers.Customer.getAll);
 
     // Get a single customer
-    server.get('/customers/:id', controllers.Customer.getById);
+    server.get('/customers/:id', customerController.getById);
 
     //Add Customers
-    server.post('/customers', rjwt({ secret: config.JWT_SECRET }), controllers.Customer.addNew);
+    server.post('/customers', rjwt({ secret: config.JWT_SECRET }), customerController.addNew);
     // server.post('/customers', controllers.Customer.addNew);
 
     // Modify User
-    server.put('/customers/:id', rjwt({ secret: config.JWT_SECRET }), controllers.Customer.modify);
+    server.put('/customers/:id', rjwt({ secret: config.JWT_SECRET }), customerController.modify);
 
     // Delete Customer
-    server.del('/customers/:id', rjwt({ secret: config.JWT_SECRET }), controllers.Customer.delete);
+    server.del('/customers/:id', rjwt({ secret: config.JWT_SECRET }), customerController.delete);
 }
