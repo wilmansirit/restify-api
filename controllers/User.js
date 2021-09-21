@@ -5,8 +5,6 @@ const errors = require('restify-errors')
     , bycript = require('bcryptjs')
     , jwt = require('jsonwebtoken')
     , User = require('../models/User')
-    , auth = require('../authenticate/auth')
-    , config = require('../config');
 
 
 module.exports = {
@@ -51,36 +49,6 @@ module.exports = {
 
             return next(new errors.InternalError(err.message));
 
-        }
-
-    },
-
-    auth: async (req, res, next) => {
-
-        if (!req.is('application/json')) return next(new errors.InvalidHeaderError("Expects 'application/json'"));
-
-        const { email, password } = req.body;
-
-        try {
-            // Authenticate User
-            const user = await auth.authenticate(email, password);
-
-            // Create a token
-            const token = jwt.sign(user.toJSON(), config.JWT_SECRET, {
-                expiresIn: '15m'
-            })
-
-            const { iat, exp } = jwt.decode(token);
-
-            //Response with token
-            res.send({ iat, exp, token });
-
-
-            next();
-
-        } catch (err) {
-            // User unauthorized
-            return next(new errors.UnauthorizedError(err));
         }
 
     }

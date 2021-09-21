@@ -1,11 +1,11 @@
 "use strict";
 
-const restify = require("restify"),
-  mongoose = require("mongoose"),
-  morgan = require("morgan"),
-  config = require("./config"),
-  rjwt = require("restify-jwt-community"),
-  cors = require("cors");
+
+const restify = require("restify")
+    , mongoose = require("mongoose")
+    , morgan = require("morgan")
+    , config = require("./config")
+    , cors = require("cors")
 
 const server = restify.createServer({
   name: "myApp",
@@ -37,6 +37,7 @@ server.use(morgan("tiny"));
 
  * */
 
+
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -61,4 +62,6 @@ db.once("open", () => {
 
   require("./routes/customers")(server);
   require("./routes/user")(server);
+  require("./routes/auth")(server);
+
 });

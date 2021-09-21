@@ -2,8 +2,7 @@
 
 const errors = require('restify-errors')
     , rjwt = require('restify-jwt-community')
-    , Customer = require('../models/Customer')
-    , config = require('../config')
+    , {JWT_SECRET} = require('../config')
 
 
 // const controllers = require('../controllers');
@@ -11,22 +10,21 @@ const customerController = require('../controllers/Customer')
 
 
 module.exports = server => {
+
     // Get Customers
-
-
     server.get('/customers', customerController.getAll);
-    // server.get('/customers', controllers.Customer.getAll);
 
     // Get a single customer
-    server.get('/customers/:id', customerController.getById);
+    server.get('/customers/:id', rjwt({ secret: JWT_SECRET }), customerController.getById);
 
-    //Add Customers
-    server.post('/customers', rjwt({ secret: config.JWT_SECRET }), customerController.addNew);
-    // server.post('/customers', controllers.Customer.addNew);
+    // Add Customer
+    server.post('/customers', rjwt({ secret: JWT_SECRET }), customerController.addNew);
 
-    // Modify User
-    server.put('/customers/:id', rjwt({ secret: config.JWT_SECRET }), customerController.modify);
-
+    // Modify Customer
+    server.put('/customers/:id', rjwt({ secret: JWT_SECRET }), customerController.modify);
+    
     // Delete Customer
-    server.del('/customers/:id', rjwt({ secret: config.JWT_SECRET }), customerController.delete);
+    server.del('/customers/:id', rjwt({ secret: JWT_SECRET }), customerController.delete);
+
+
 }
